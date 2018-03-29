@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    body {
+      position: relative;
+  }
+  .card{
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px;
+  }
+  p{
+    color: white;
+  }
+  .panel-body{
+    color:#ff9800;
+  }
+  
+    
+  
+   
+     
+   
+  #section1 {padding-top:50px;height:500px;color: #fff; background-color: #1E88E5;}
+  #section2 {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
+  #section3 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+  #section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+  #section42 {padding-top:50px;height:500px;color: #fff; background-color: #009688;}
+  
+</style>
+</head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+<script type="text/template" id="cardTemplate">
+    <div class="w3-container">
+    <div class="container">
+  <h2></h2><br>
+  <div class="panel panel-primary">
+    <div class="panel-heading">{{business_name}}</div>
+    <div class="panel-body">{{address_zip}}</div>
+    <div class="panel-body">{{address_borough}}</div>
+    <div class="panel-body">{{industry}}</div>
+    <div class="panel-body"><marquee>{{address_street_name}}</marquee></div>
+
+    
+  </div>
+</div>
+</script>
+<script>
+    var data;
+    function loadJSON(){
+        data = $.getJSON("https://data.cityofnewyork.us/resource/p2mh-mrfv.json", function(results){
+            data = results
+        })
+    }
+    
+    function displayBusiness(borough){
+        var build = "";
+        var output = document.getElementById(borough)
+        //var borough = document.getElementById("borough")
+        var cardTemplate = document.getElementById("cardTemplate").innerHTML;
+        
+        for(var index = 0; index < data.length; index++){
+           if(data[index].address_borough == borough){
+                build += Mustache.render(cardTemplate, data[index]);               
+            }
+        }
+        output.innerHTML = "<br>" + build;
+    }
+    
+</script>
+<body onload="loadJSON()">-->
+<body style = "background-color: lightblue">
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">New York Businesses</a>
+    </div>
+    <div>
+
+      
+      
+      
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Boroughs<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a onclick="displayBusiness('Brooklyn')" >Brooklyn</a></li>
+              <li><a  onclick="displayBusiness('Bronx')">Bronx</a></li>
+              <li><a  onclick="displayBusiness('Manhattan')">Manhattan</a></li>
+              <li><a onclick="displayBusiness('Queens')">Queens</a></li>
+              <li><a  onclick="displayBusiness('Staten Island')">Staten Island</a></li>
+            </ul>
+          </li>
+        </ul> 
+        </div>
+       <p> The website we have created is based off Business located in New York City's five boroughs. With the data provided to us from the NYC Open 
+        database we were able to retrieve all the information we needed from every business ever made in the city of New York. We found just displaying
+        the information from inputs was to simple. We have incorprated a Booststrap dropdown within our code, so when you press on a certain borough it diplays cards. 
+        On these cards we have given key information that may be useful to people that want to know the business.</p>
+        
+        <img src="Capture.png" alt="JSON" width="460" height="345"> 
+        <img src="scr1.png" alt="JSON" width="460" height="345">
+    </div>
+  </div>
+</nav>  
+
+<div id="Brooklyn" class="container-fluid">
+  
+</div>
+
+
+<div id="Bronx" class="container-fluid">
+</div>
+
+
+<div id="Manhattan" class="container-fluid">
+</div>
+
+
+
+<div id="Queens" class="container-fluid">
+</div>
+
+
+<div id="Staten Island" class="container-fluid">
+</div>
+
+
+    <div id="output">
+    </div>
+</body>
+
+</html>
